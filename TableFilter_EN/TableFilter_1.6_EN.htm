@@ -1,0 +1,774 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>HTML Table Filter Generator v1.6</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<style type="text/css" media="screen">
+
+/*====================================================
+	- HTML Table Filter stylesheet
+=====================================================*/
+@import "filtergrid.css";
+
+/*====================================================
+	- General html elements
+=====================================================*/
+body{ 
+	margin:15px; padding:15px; border:1px solid #666;
+	font-family:Arial, Helvetica, sans-serif; font-size:88%; 
+}
+h2{ margin-top: 50px; }
+caption{ margin:10px 0 0 5px; padding:10px; text-align:left; }
+pre{ font-size:13px; margin:5px; padding:5px; background-color:#f4f4f4; border:1px solid #ccc;  }
+.mytable{
+	width:100%; font-size:12px;
+	border:1px solid #ccc;
+}
+th{ background-color:#003366; color:#FFF; padding:2px; border:1px solid #ccc; }
+td{ padding:2px; border-bottom:1px solid #ccc; border-right:1px solid #ccc; }
+</style>
+<script language="javascript" type="text/javascript" src="tablefilter.js"></script>
+</head>
+<body>
+
+<h1>HTML Table Filter Generator v1.6</h1>
+<h2>Description</h2>
+<p>This script adds to any html table a &quot;filter by column&quot; feature that 
+  enables users to filter and limit the data displayed within a long table. It 
+  even works on tables with uneven rows. The script automatically adds a filter 
+  grid bar at the top of the desired table. Users can use the following operators 
+  to filter columns containing numeric data: <strong>&lt;</strong>, <strong>&lt;=</strong>, 
+  <strong>&gt;</strong>, <strong>&gt;=</strong>.</p>
+<p>- Description page at:<br/>
+<a href="http://mguglielmi.free.fr/scripts/TableFilter/?l=en" target="_blank">mguglielmi.free.fr/scripts/TableFilter/?l=en</a>
+</p>
+<p>- Demo pages at:<br/>
+<a href="http://mguglielmi.free.fr/scripts/TableFilter/datademo.htm" target="_blank">mguglielmi.free.fr/scripts/TableFilter/datademo.htm</a><br/>
+<a href="http://mguglielmi.free.fr/scripts/TableFilter/datademo2.htm" target="_blank">mguglielmi.free.fr/scripts/TableFilter/datademo2.htm</a>
+</p>
+<h2>How does it work?</h2>
+<p>You just need to define the <code>id</code> attribute of a table and insert a piece of javascript code in the <code>head</code> of the html document or in an external &quot;.js&quot; file.</p>
+<p>Here you have an example of a regular html table: </p>
+
+			
+<table cellspacing="0" class="mytable" >
+<tr>
+<td><strong>From</strong></td>
+<td><strong>Destination</strong></td>
+
+<td><strong>Road Distance (km)</strong></td>
+<td><strong>By Air (hrs)</strong></td>
+<td width="10%"><strong>By Car/Coach (hrs)</strong></td>
+<td><strong>By Rail (hrs)</strong></td>
+</tr>
+
+
+<tr>
+<td><strong>Sydney</strong></td>
+<td>Adelaide</td>
+<td>1412</td>
+
+<td>1.4</td>
+<td>24</td>
+<td>25.3</td>
+</tr>
+
+<tr>
+<td><strong>Sydney</strong></td>
+<td>Brisbane</td>
+<td>982</td>
+<td>1.5</td>
+
+<td>17</td>
+<td>16</td>
+</tr>
+
+<tr>
+<td><strong>Sydney</strong></td>
+<td>Canberra</td>
+<td>286</td>
+<td>.6</td>
+<td>4.2</td>
+
+<td>4.3</td>
+</tr>
+
+<tr>
+<td><strong>Sydney</strong></td>
+<td>Melbourne</td>
+<td>872</td>
+<td>1.1</td>
+<td>14.3</td>
+<td>10.5</td>
+
+</tr>
+
+<tr>
+<td><strong>Adelaide</strong></td>
+<td>Perth</td>
+<td>2781</td>
+<td>3.1</td>
+<td>35</td>
+<td>38</td>
+</tr>
+
+<tr>
+<td><strong>Adelaide</strong></td>
+<td>Alice Springs</td>
+<td>1533</td>
+<td>2</td>
+<td>20</td>
+<td>20.25</td>
+</tr>
+
+<tr>
+<td><strong>Adelaide</strong></td>
+
+<td>Brisbane</td>
+<td>2045</td>
+<td>2.15</td>
+<td>33.3</td>
+<td>40</td>
+</tr>
+
+</table>				
+
+
+<p>Below the same table with a filtering grid generated automatically: </p>
+
+<table id="table1" cellspacing="0" class="mytable" width="800" >
+<tr>
+<th><strong>From</strong></th>
+<th><strong>Destination</strong></th>
+<th><strong>Road Distance (km)</strong></th>
+<th><strong>By Air (hrs)</strong></th>
+<th><strong>By Car/Coach (hrs)</strong></th>
+<th><strong>By Rail (hrs)</strong></th>
+</tr>
+
+
+<tr>
+<td><strong>Sydney</strong></td>
+<td>Adelaide</td>
+<td>1412</td>
+
+<td>1.4</td>
+<td>24</td>
+<td>25.3</td>
+</tr>
+
+<tr>
+<td><strong>Sydney</strong></td>
+<td>Brisbane</td>
+<td>982</td>
+<td>1.5</td>
+
+<td>17</td>
+<td>16</td>
+</tr>
+
+<tr>
+<td><strong>Sydney</strong></td>
+<td>Canberra</td>
+<td>286</td>
+<td>.6</td>
+<td>4.2</td>
+
+<td>4.3</td>
+</tr>
+
+<tr>
+<td><strong>Sydney</strong></td>
+<td>Melbourne</td>
+<td>872</td>
+<td>1.1</td>
+<td>14.3</td>
+<td>10.5</td>
+
+</tr>
+
+<tr>
+<td><strong>Adelaide</strong></td>
+<td>Perth</td>
+<td>2781</td>
+<td>3.1</td>
+<td>35</td>
+<td>38</td>
+</tr>
+
+<tr>
+<td><strong>Adelaide</strong></td>
+<td>Alice Springs</td>
+<td>1533</td>
+<td>2</td>
+<td>20</td>
+<td>20.25</td>
+</tr>
+
+<tr>
+<td><strong>Adelaide</strong></td>
+
+<td>Brisbane</td>
+<td>2045</td>
+<td>2.15</td>
+<td>33.3</td>
+<td>40</td>
+</tr>
+</table>				
+
+<script language="javascript" type="text/javascript">
+//<![CDATA[
+	setFilterGrid("table1");
+//]]>
+</script>
+
+<p>By adding an <code>id</code> (<code>id=&quot;table1&quot;</code>) to the table and inserting the script below in the <code>&lt;body&gt;</code> section:</p>
+
+<pre><code>&lt;script language=&quot;javascript&quot; type=&quot;text/javascript&quot;&gt;
+	setFilterGrid(&quot;table1&quot;);
+&lt;/script&gt; </code></pre>
+		
+<p>the grid will be generated automatically. The number of filters (<code>&lt;input&gt;</code>) 
+  is equal to the number of columns (<code>&lt;td&gt;</code>). If your document 
+  contains several tables (like this page), it is important to define unique ids, 
+  otherwise the script will not work properly.</p>
+<p>The <code>setFilterGrid()</code> function accepts 2 additional parameters that 
+  will be explained in the next tables. In the example below, by specifing a row 
+  number as a &quot;reference&quot; row, we tell the function which row to use 
+  in order to generate the right number of filters: </p>
+
+<table id="table2" cellspacing="0" class="mytable">
+  <tr> 
+    <td colspan="6"><strong>This is the table caption </strong></td>
+  </tr>
+  <tr class="sortHeader"> 
+    <th>From</th>
+    <th>Destination</th>
+    <th>Road Distance (km)</th>
+    <th>By Air (hrs)</th>
+    <th width="10%">By Car/Coach (hrs)</th>
+    <th width="30%">By Rail (hrs)</th>
+  </tr>
+  <tr> 
+    <td><strong>Sydney</strong></td>
+    <td>Adelaide (AUS)</td>
+    <td>1412</td>
+    <td>1.4</td>
+    <td>24</td>
+    <td>25.3</td>
+  </tr>
+  <tr> 
+    <td><strong>Sydney</strong></td>
+    <td>Brisbane</td>
+    <td>982</td>
+    <td>1.5</td>
+    <td>17</td>
+    <td>16</td>
+  </tr>
+  <tr> 
+    <td><strong>Sydney</strong></td>
+    <td>Canberra</td>
+    <td>286</td>
+    <td>.6</td>
+    <td>4.2</td>
+    <td>4.3</td>
+  </tr>
+  <tr> 
+    <td><strong>Sydney</strong></td>
+    <td>Melbourne</td>
+    <td>872</td>
+    <td>1.1</td>
+    <td>14.3</td>
+    <td>10.5</td>
+  </tr>
+  <tr> 
+    <td><strong>Adelaide</strong></td>
+    <td>Perth</td>
+    <td>2781</td>
+    <td>3.1</td>
+    <td>35</td>
+    <td>38</td>
+  </tr>
+  <tr> 
+    <td><strong>Adelaide</strong></td>
+    <td>Alice Springs</td>
+    <td>1533</td>
+    <td>2</td>
+    <td>20</td>
+    <td>20.25</td>
+  </tr>
+  <tr> 
+    <td><strong>Adelaide</strong></td>
+    <td colspan="2" bgcolor="#FFFFCC">Brisbane2045</td>
+    <td>2.15</td>
+    <td>33.3</td>
+    <td>40ttt</td>
+  </tr>
+</table>
+
+<script language="javascript" type="text/javascript">
+//<![CDATA[
+	setFilterGrid("table2",1);
+//]]>
+</script>
+<pre><code>	setFilterGrid(&quot;table2&quot;,<strong>1</strong>);</code>
+</pre>
+
+<p>Here we have specified row number <strong>1</strong>, that is the second row 
+  from the top. The 1st row is number <strong>0</strong>. Since the 1st row doesn't 
+  contain the right number of columns, we need to pass the mentioned parameter 
+  in order to calculate the right number of columns and also define from which 
+  row should start the filtering process. Note that merged cells (<code>&lt;td 
+  colspan=&quot;2&quot;&gt;</code>) are simply skipped.</p>
+<p>By default, the script adds text boxes (<code>&lt;input&gt;</code>). As you 
+  will see in the next example, you may also decide to use a <strong>drop-down 
+  lists</strong> (<code>&lt;select&gt;</code>) instead of text boxes:</p>
+
+
+<table id="table_3" cellspacing="0" class="mytable" >
+  <tr> 
+    <td colspan="7"><strong>This is the table caption </strong></td>
+  </tr>
+  <tr> 
+    <th width="1%">&nbsp;</th>
+    <th width="15%"><strong>From</strong></th>
+    <th width="15%"><strong>Destination</strong></th>
+    <th><strong>Road Distance (km)</strong></th>
+    <th><strong>By Air (hrs)</strong></th>
+    <th><strong>By Car/Coach (hrs)</strong></th>
+    <th><strong>By Rail (hrs)</strong></th>
+  </tr>
+  <tr> 
+    <td>1.</td>
+    <td><strong>Sydney</strong></td>
+    <td>Adelaide</td>
+    <td>1412</td>
+    <td>1.4</td>
+    <td>24</td>
+    <td>25.3</td>
+  </tr>
+  <tr> 
+    <td>2.</td>
+    <td><strong>Sydney</strong></td>
+    <td>Brisbane</td>
+    <td>982</td>
+    <td>1.5</td>
+    <td>17</td>
+    <td>16</td>
+  </tr>
+  <tr> 
+    <td>3.</td>
+    <td><strong>Sydney</strong></td>
+    <td>Canberra</td>
+    <td>286</td>
+    <td>.6</td>
+    <td>4.2</td>
+    <td>4.3</td>
+  </tr>
+  <tr> 
+    <td>4.</td>
+    <td><strong>Sydney</strong></td>
+    <td>Melbourne</td>
+    <td>872</td>
+    <td>1.1</td>
+    <td>14.3</td>
+    <td>10.5</td>
+  </tr>
+  <tr> 
+    <td>5.</td>
+    <td><strong>Adelaide (AUS)</strong></td>
+    <td>Perth</td>
+    <td>2781</td>
+    <td>3.1</td>
+    <td>35</td>
+    <td>38</td>
+  </tr>
+  <tr> 
+    <td>6.</td>
+    <td><strong>DeAdelaide</strong></td>
+    <td>Alice Springs</td>
+    <td>1533</td>
+    <td>2</td>
+    <td>20</td>
+    <td>20.25</td>
+  </tr>
+  <tr> 
+    <td>7.</td>
+    <td><strong>Adelaide</strong></td>
+    <td>Brisbane</td>
+    <td>2045</td>
+    <td>2.15</td>
+    <td>33.3</td>
+    <td>40</td>
+  </tr>
+</table>				
+
+<script language="javascript" type="text/javascript">
+//<![CDATA[
+	var table3Filters = {
+		btn: true,
+		col_0: "none",
+		col_1: "select",
+		btn_text: " > "
+	}
+	setFilterGrid("table_3",1,table3Filters);
+//]]>
+</script>
+<p>To do that you just need to declare an <code>Array</code> in which you specify which filters should not be displayed or displayed as drop-down lists:</p>
+
+<pre><code>&lt;script language=&quot;javascript&quot; type=&quot;text/javascript&quot;&gt;
+	var table3Filters = {
+		<strong>btn</strong>: <strong>true</strong>,
+<strong>		col_0</strong>: &quot;<strong>none</strong>&quot;,
+<strong>		col_2</strong>: &quot;<strong>select</strong>&quot;,
+		<strong>btn_text</strong>: &quot;  &gt;  &quot;
+	}
+	setFilterGrid(&quot;table3&quot;,1,<strong>table3Filters</strong>);
+&lt;/script&gt;</code></pre>
+
+<p>You can name the <code>Array</code> as you want, but don't forget to add it 
+  to the parameters of the <code>setFilterGrid</code>() function. It is important 
+  to respect the syntax and naming convention as shown above. There are only 2 
+  values for <code>col_n</code>: <code>&quot;<strong>none</strong>&quot;</code> 
+  hides the text box for the designated column and <code>&quot;<strong>select</strong>&quot;</code> 
+  creates a drop-down list with only 1 occurrence of each cell data. Similarly 
+  to row designation, here the first column is column number <strong>0</strong>: 
+  <code><strong>col_0</strong></code>.</p>
+<p>The button &quot;go&quot; in the grid can also be changed. By adding the <code><strong>btn_text</strong></code> property with 
+  a desired value, you can modify the text of the button. Below you will find an exhaustive list of properties you can define. </p>
+  
+
+<h2>Properties table </h2>
+<p>In the following table you will find all the elements you can define in the grid:</p>
+<table id="recap" cellspacing="0" class="mytable" >
+  <tr> 
+    <th >Property Name</th>
+    <th >Type</th>
+    <th >Description</th>
+    <th >Example</th>
+  </tr>
+  <tr> 
+    <td><strong>col_0</strong></td>
+    <td>string</td>
+    <td>hides text box (input) for a desired column</td>
+    <td><code> var MyTableFilter = { <strong> </strong>col_0: &quot;none&quot; 
+      }</code></td>
+  </tr>
+  <tr> 
+    <td><strong>col_3</strong></td>
+    <td>string</td>
+    <td>generates a drop-down list for a desired column</td>
+    <td><code> var MyTableFilter = { <strong> </strong>col_3: &quot;select&quot; 
+      }</code></td>
+  </tr>
+  <tr> 
+    <td><strong>btn</strong></td>
+    <td>boolean</td>
+    <td>if set true shows &quot;Go&quot; button in the grid (default - false) </td>
+    <td><code>var MyTableFilter = { <strong> </strong>btn: true }</code></td>
+  </tr>
+  <tr> 
+    <td><strong>btn_text</strong></td>
+    <td>string</td>
+    <td>changes the text of the button</td>
+    <td><code>var MyTableFilter = { <strong> </strong>btn_text: &quot;Filter&quot; 
+      }</code></td>
+  </tr>
+  <tr> 
+    <td><strong>enter_key</strong></td>
+    <td>boolean</td>
+    <td>disables &quot;enter&quot; key (default - true) </td>
+    <td><code>var MyTableFilter = { <strong> </strong>enter_key: false }</code></td>
+  </tr>
+  <tr> 
+    <td><strong>mod_filter_fn</strong></td>
+    <td>function</td>
+    <td>calls another function instead of the default function ( Filter('mytable') 
+      ) at submission </td>
+    <td><code>var MyTableFilter = { <strong> </strong>mod_filter_fn: function(){ 
+      alert('Calls another function!!!'); Filter('table_3'); }}</code></td>
+  </tr>
+  <tr> 
+    <td><strong>display_all_text</strong></td>
+    <td>string</td>
+    <td>sets message for &quot;display all&quot; in drop-down list; (default - 
+      empty)</td>
+    <td><code> var MyTableFilter = { <strong> </strong>display_all_text: &quot;Display 
+      all towns&quot; }</code></td>
+  </tr>
+  <tr> 
+    <td><strong>on_change</strong></td>
+    <td>boolean</td>
+    <td> filters the table as you change the value of a drop-down 
+      list (default - true)</td>
+    <td><code>var MyTableFilter = { <strong> </strong>on_change: false }</code></td>
+  </tr>
+  <tr> 
+    <td><strong>rows_counter</strong></td>
+    <td>boolean</td>
+    <td>if set true, it will display the total # of rows displayed at the top 
+      of the table in left corner (default - false) </td>
+    <td><code>var MyTableFilter = { <strong> </strong>rows_counter: true }</code></td>
+  </tr>
+  <tr> 
+    <td><strong>rows_counter_text</strong></td>
+    <td>string</td>
+    <td>sets text of the label for total # of rows displayed (default - &quot;Data 
+      rows: &quot;) </td>
+    <td><code>var MyTableFilter = { <strong> </strong>rows_counter_text: &quot;Total 
+      items: &quot; }</code></td>
+  </tr>
+  <tr> 
+    <td><strong>btn_reset</strong></td>
+    <td>boolean</td>
+    <td>if set true, it will show a &quot;Reset&quot; button at the top of the 
+      table in right corner (default - false) allowing users to re-initialise 
+      the table </td>
+    <td><code>var MyTableFilter = { <strong> </strong>btn_reset: true }</code></td>
+  </tr>
+  <tr> 
+    <td><strong>btn_reset_text</strong></td>
+    <td>string</td>
+    <td>sets text for the &quot;Reset&quot; button (default - &quot;Reset&quot;) 
+    </td>
+    <td><code>var MyTableFilter = { <strong> </strong>btn_reset_text: &quot;Clear&quot; 
+      }</code></td>
+  </tr>
+  <tr> 
+    <td><strong>sort_select</strong></td>
+    <td>boolean</td>
+    <td>if set true, it will sort options in the drop-down list(s) (default - 
+      false) </td>
+    <td><code>var MyTableFilter = { <strong> </strong>sort_select: true }</code></td>
+  </tr>
+  <tr> 
+    <td><strong>paging</strong></td>
+    <td>boolean</td>
+    <td>if set true, it will generate a paging feature </td>
+    <td><code>var MyTableFilter = { <strong> </strong>paging: true }</code></td>
+  </tr>
+  <tr> 
+    <td><strong>paging_length</strong></td>
+    <td>number</td>
+    <td>sets # of rows displayed in a page (default - 10) </td>
+    <td><code>var MyTableFilter = { <strong> </strong>paging_length: 50 }</code></td>
+  </tr>
+  <tr> 
+    <td><strong>loader</strong></td>
+    <td>boolean</td>
+    <td>if set true, it will display a &quot;loading&quot; message (default - 
+      false) </td>
+    <td><code>var MyTableFilter = { <strong> </strong>loader: true }</code></td>
+  </tr>
+  <tr> 
+    <td><strong>loader_text</strong></td>
+    <td>string</td>
+    <td>sets text for &quot;loading&quot; message (default - &quot;Loading...&quot;) 
+    </td>
+    <td><code>var MyTableFilter = { <strong> </strong>loader_text: &quot;Filtering 
+      data...&quot; }</code></td>
+  </tr>
+  <tr> 
+    <td><strong>exact_match</strong></td>
+    <td>boolean</td>
+    <td>if set true, only exact matches will be displayed (default - false)</td>
+    <td><code>var MyTableFilter = { <strong> </strong>exact_match: true }</code></td>
+  </tr>
+  <tr> 
+    <td><strong>grid</strong></td>
+    <td>boolean</td>
+    <td>enables / disables filter grid generation (default - true) </td>
+    <td><code>var MyTableFilter = { <strong> </strong>grid: false }</code></td>
+  </tr>
+  <tr> 
+    <td><strong>alternate_rows</strong></td>
+    <td>boolean</td>
+    <td>if set true, it enables alternating rows background color (default - false) 
+    </td>
+    <td><code>var MyTableFilter = { <strong> </strong>alternate_rows: true }</code></td>
+  </tr>
+  <tr> 
+    <td><strong>col_operation</strong></td>
+    <td>object</td>
+    <td>this object calculates the values of a column (sum,mean). It works with 
+      the following properties: 
+        <ul>
+        <li> <em>colOperation[&quot;id&quot;]</em> contains the ids of elements 
+          <br />
+          showing result (array)</li>
+        <li> <em>colOperation[&quot;col&quot;]</em> contains index of <br />
+          columns (array)</li>
+        <li> <em>colOperation[&quot;operation&quot;]</em> contains operation<br />
+          type (array, values: 'sum', 'mean')</li>
+        <li> <em>colOperation[&quot;write_method&quot;]</em> array defines <br />
+          which method to use for displaying the <br />
+          result ('innerHTML', 'setValue', 'createTextNode').<br />
+          Note that innerHTML is the default value. </li>
+      </ul></td>
+    <td><code> var MyTableFilter = { <br />
+      &nbsp;&nbsp;&nbsp; col_operation: { <br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; id: [&quot;table8Tot1&quot;,&quot;table8Tot2&quot;], 
+      <br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; col: [2,5],<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;operation: [&quot;sum&quot;,&quot;mean&quot;],<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; write_method: [&quot;innerHTML&quot;,&quot;setValue&quot;] 
+      <br />
+      &nbsp;&nbsp;&nbsp; }<br />
+      } </code></td>
+  </tr>
+  <tr> 
+    <td><strong>rows_always_visible</strong></td>
+    <td>array</td>
+    <td>this property makes desired rows always visible. It accepts an array definining 
+      the row indexes to be displayed ([1,2,3..]) </td>
+    <td><code>var MyTableFilter = { <strong> </strong>rows_always_visible: [9,10] 
+      }</code></td>
+  </tr>
+  <tr> 
+    <td><strong>col_width</strong></td>
+    <td>array</td>
+    <td>this property defines column widths. It accepts an array containing width 
+      values (['150px','10%']) </td>
+    <td><code>var MyTableFilter = { <strong> </strong>col_width: [&quot;150px&quot;,&quot;15%&quot;,null,null] 
+      }</code></td>
+  </tr>
+  <tr> 
+    <td><strong>bind_script</strong></td>
+    <td>object</td>
+    <td>this property designs a function that will be called after grid generation. 
+      This function will interact with another script in order to merge the filter 
+      generator with other script(s). Note that the invoked function needs to 
+      developed. It accepts an object with the following properties: 
+        <ul>
+        <li><em>bind_script[&quot;name&quot;]</em> contains an identifier for 
+          the script (string)</li>
+        <li><em>bind_script[&quot;target_fn&quot;]</em> designs the function to 
+          invoke (function) </li>
+      </ul></td>
+    <td><code>var table10_Props = {<br />
+      &nbsp;&nbsp;&nbsp; bind_script:{ name:&quot;autocomplete&quot;, target_fn: 
+      setAutoComplete }<br />
+      };</code></td>
+  </tr>
+</table>
+<script language="javascript" type="text/javascript">
+//<![CDATA[
+	var recapFilters = {
+		sort_select: true,
+		loader: true,
+		col_1: "select", 
+		on_change: true,
+		display_all_text: " [ Show all ] ",
+		rows_counter: true,
+		btn_reset: true,
+		alternate_rows: true,
+		btn_reset_text: "Clear",
+		col_width: ["150px","150px",null,null]
+	}
+	setFilterGrid("recap",recapFilters);
+//]]>
+</script>
+
+<h2>Public functions</h2>
+<p>These are the functions developers should use in order to interact with the filter grid:</p>
+<table id="fns" cellspacing="0" class="mytable">
+  <tr> 
+    <th>Fn name</th>
+    <th>Description</th>
+    <th>Example</th>
+  </tr>
+  <tr> 
+    <td><strong>TF_GetFilterIds()</strong></td>
+    <td>Returns an array containing filter grid ids of the page</td>
+    <td> <code>var gridIds = TF_GetFilterIds();</code> </td>
+  </tr>
+  <tr> 
+    <td><strong>TF_HasGrid(id)</strong></td>
+    <td>Checks if the table designated by the argument has a filter grid. It returns 
+      a boolean</td>
+    <td><code>var hasTFGrid = TF_HasGrid(&quot;myTableId&quot;);</code> </td>
+  </tr>
+  <tr> 
+    <td><strong>TF_GetFilters(id)</strong></td>
+    <td>Returns an array containing filter ids of a specified grid</td>
+    <td><code>var filterIds = TF_GetFilters(&quot;myTableId&quot;);</code> </td>
+  </tr>
+  <tr> 
+    <td><strong>TF_GetStartRow(id)</strong></td>
+    <td>Returns the index of the row from which will start the filtering process</td>
+    <td><code>var startRow = TF_GetStartRow(&quot;myTableId&quot;);</code> </td>
+  </tr>
+  <tr> 
+    <td><strong>TF_GetColValues(id,colindex,num)</strong></td>
+    <td>Returns an array containing cell values of a column. It needs following 
+      args: 
+      <ul>
+        <li>a table id (string)</li>
+        <li>a column index (number)</li>
+        <li>a boolean set to true if we want only numbers to be returned (optional)</li>
+      </ul></td>
+    <td><code>var myColValues = TF_GetColValues(&quot;myTableId&quot;,0);</code> 
+    </td>
+  </tr>
+  <tr> 
+    <td><strong>TF_Filter(id)</strong></td>
+    <td>Filters a table</td>
+    <td><code>TF_Filter(&quot;myTableId&quot;);</code></td>
+  </tr>
+  <tr> 
+    <td><strong>TF_RemoveFilterGrid(id)</strong></td>
+    <td>Removes a filter grid. Note that all the properties attached to the filter 
+      table will not be removed. This will make it easier to reset the filter 
+      (if needed) since all the properties are still available</td>
+    <td><code>TF_RemoveFilterGrid(&quot;myTableId&quot;);</code> </td>
+  </tr>
+  <tr> 
+    <td><strong>TF_ClearFilters(id)</strong></td>
+    <td>Clears the grid filters only. Note that the table will not be filtered</td>
+    <td><code>TF_ClearFilters(id);</code> </td>
+  </tr>
+  <tr> 
+    <td><strong>TF_SetFilterValue(id,index,searcharg)</strong></td>
+    <td>Inserts a value in a specified filter. It accepts the following arguments: 
+      <ul>
+        <li>a table id (string)</li>
+        <li>a filter column index (numeric value)</li>
+        <li>a search string</li>
+      </ul></td>
+    <td><code>TF_SetFilterValue(&quot;myTableId&quot;,2,'Search string here');</code> 
+    </td>
+  </tr>
+</table>
+<script language="javascript" type="text/javascript">
+//<![CDATA[
+	var fnsFilters = {
+		sort_select: true,
+		loader: true,
+		col_0: "select", 
+		on_change: true,
+		display_all_text: " [ Show all ] ",
+		rows_counter: true,
+		btn_reset: true,
+		alternate_rows: true,
+		btn_reset_text: "Clear",
+		col_width: ["220px",null,"280px"]
+	}
+	setFilterGrid("fns",fnsFilters);
+//]]>
+</script>
+
+<h2>Last thing...</h2>
+<p>I hope you will find this script useful. Feel free to use and change this script, 
+  however I will be grateful if you could <a href="mailto:maxgug@hotmail.com?subject=HTML Table Filter Generator">inform 
+  me</a> about any usage or modification. </p>
+
+<h2>Enough words</h2>
+<ul>
+	<li><a href="tablefilter.js">Download the .js file</a></li>
+	<li><a href="filtergrid.css">Download the .css file</a></li>
+</ul>
+<hr />
+
+
+</body>
+</html>

@@ -1,0 +1,1254 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>HTML Table Filter Generator v1.6 - Examples</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<style type="text/css" media="screen">
+/*====================================================
+	- HTML Table Filter stylesheet
+=====================================================*/
+@import "filtergrid.css";
+
+/*====================================================
+	- General html elements
+=====================================================*/
+body{ 
+	margin:15px; padding:15px; border:1px solid #666;
+	font-family:Arial, Helvetica, sans-serif; font-size:88%; 
+}
+h2{ margin-top: 50px; }
+caption{ margin:10px 0 0 5px; padding:10px; text-align:left; }
+pre{ font-size:13px; margin:5px; padding:5px; background-color:#f4f4f4; border:1px solid #ccc;  }
+.mytable{
+	width:100%; font-size:12px;
+	border:1px solid #ccc;
+}
+div.tools{ margin:5px; }
+div.tools input{ background-color:#f4f4f4; border:2px outset #f4f4f4; margin:2px; }
+th{ background-color:#003366; color:#FFF; padding:2px; border:1px solid #ccc; }
+td{ padding:2px; border-bottom:1px solid #ccc; border-right:1px solid #ccc; }
+
+</style>
+<script language="javascript" type="text/javascript" src="actb.js"></script><!-- External script -->
+<script language="javascript" type="text/javascript" src="tablefilter.js"></script>
+</head>
+
+<body>
+<a name="top" id="top"></a>
+<h1>HTML Table Filter Generator v1.6 examples</h1>
+<p>In this page you will find a collection of examples showing how to use the HTML Table Filter Generator properties and public functions.</p>
+<div id="toc">
+	<ul>
+		<li><a href="#tbl1">Table 1: add the filter grid</a></li>
+		<li><a href="#tbl2">Table 2: add a drop-down list, define its first option, sort it and remove a filter</a></li>
+		<li><a href="#tbl3">Table 3: define a start row for filtering process and make a row always visible</a></li>
+		<li><a href="#tbl4">Table 4: disable 'enter' key detection, disable &quot;onchange&quot; event on combo-box, add &quot;go&quot; button and call another function upon validation...</a></li>
+		<li><a href="#tbl5">Table 5: enable exact query matches, set alternating rows background color, set column widths, add rows counter and reset button</a></li>
+		<li><a href="#tbl6">Table 6: set paging, enable loader, set rows counter and reset button</a></li>
+		<li><a href="#tbl7">Table 7: disable filter grid and set paging</a></li>
+		<li><a href="#tbl8">Table 8: set the last row always visible and perform a sum operation on 2 columns</a></li>
+		<li><a href="#tbl9">Table 9: perform actions and retrieve information from the grid by using public functions</a></li>
+		<li><a href="#tbl10">Table 10: add an autocomplete feature to 1st column by binding an external script</a></li>
+	</ul>
+</div>
+<p>Here you have a regular HTML table:</p>
+<table class="mytable" >
+	<caption>WORLD INTERNET USAGE AND POPULATION STATISTICS</caption>
+	<tr>
+		<th>World Regions</th>
+		<th>Population ( 2007 Est.)</th>
+		<th>Population % of World</th>
+		<th>Internet Usage, Latest Data</th>
+		<th>% Population ( Penetration )</th>
+		<th>Usage % of World</th>
+		<th>Usage Growth 2000-2007</th>
+	</tr>
+	<tr>
+		<td>Africa</td>
+		<td>933,448,292</td>
+		<td>14.2 %</td>
+		<td>32,765,700</td>
+		<td>3.5 %</td>
+		<td>3.0 %</td>
+		<td>625.8%</td>
+	</tr>
+	<tr>
+		<td>Asia</td>
+		<td>3,712,527,624</td>
+		<td>56.5 %</td>
+		<td>389,392,288</td>
+		<td>10.5 %</td>
+		<td>35.6 %</td>
+		<td>240.7 %</td>
+	</tr>
+	<tr>
+		<td>Europe</td>
+		<td>809,624,686</td>
+		<td>12.3 %</td>
+		<td>312,722,892</td>
+		<td>38.6 %</td>
+		<td>28.6 %</td>
+		<td>197.6 %</td>
+	</tr>
+	<tr>
+		<td>Middle	East</td>
+		<td>193,452,727</td>
+		<td>2.9 %</td>
+		<td>19,382,400</td>
+		<td>10.0 %</td>
+		<td>1.8 %</td>
+		<td>490.1 %</td>
+	</tr>
+	<tr>
+		<td>North America</td>
+		<td>334,538,018</td>
+		<td>5.1 %</td>
+		<td>232,057,067</td>
+		<td>69.4 %</td>
+		<td>21.2 %</td>
+		<td>114.7 %</td>
+	</tr>
+	<tr>
+		<td>Latin America / Caribbean</td>
+		<td>556,606,627</td>
+		<td>8.5 %</td>
+		<td>88,778,986</td>
+		<td>16.0 %</td>
+		<td>8.1 %</td>
+		<td>391.3 %</td>
+	</tr>
+	<tr>
+		<td>Oceania / Australia</td>
+		<td>34,468,443</td>
+		<td>0.5 %</td>
+		<td>18,430,359</td>
+		<td>53.5 %</td>
+		<td>1.7 %</td>
+		<td>141.9 %</td>
+	</tr>
+</table>
+<p>Below some examples of how to apply the filter grid to the same table:</p>
+<h2><a name="tbl1" id="tbl1"></a>TABLE 1</h2>
+<p>Add the filter grid</p>
+<table id="table1" class="mytable" >
+	<tr>
+		<th>World Regions</th>
+		<th>Population ( 2007 Est.)</th>
+		<th>Population % of World</th>
+		<th>Internet Usage, Latest Data</th>
+		<th>% Population ( Penetration )</th>
+		<th>Usage % of World</th>
+		<th>Usage Growth 2000-2007</th>
+	</tr>
+	<tr>
+		<td>Africa</td>
+		<td>933,448,292</td>
+		<td>14.2 %</td>
+		<td>32,765,700</td>
+		<td>3.5 %</td>
+		<td>3.0 %</td>
+		<td>625.8%</td>
+	</tr>
+	<tr>
+		<td>Asia</td>
+		<td>3,712,527,624</td>
+		<td>56.5 %</td>
+		<td>389,392,288</td>
+		<td>10.5 %</td>
+		<td>35.6 %</td>
+		<td>240.7 %</td>
+	</tr>
+	<tr>
+		<td>Europe</td>
+		<td>809,624,686</td>
+		<td>12.3 %</td>
+		<td>312,722,892</td>
+		<td>38.6 %</td>
+		<td>28.6 %</td>
+		<td>197.6 %</td>
+	</tr>
+	<tr>
+		<td>Middle	East</td>
+		<td>193,452,727</td>
+		<td>2.9 %</td>
+		<td>19,382,400</td>
+		<td>10.0 %</td>
+		<td>1.8 %</td>
+		<td>490.1 %</td>
+	</tr>
+	<tr>
+		<td>North America</td>
+		<td>334,538,018</td>
+		<td>5.1 %</td>
+		<td>232,057,067</td>
+		<td>69.4 %</td>
+		<td>21.2 %</td>
+		<td>114.7 %</td>
+	</tr>
+	<tr>
+		<td>Latin America / Caribbean</td>
+		<td>556,606,627</td>
+		<td>8.5 %</td>
+		<td>88,778,986</td>
+		<td>16.0 %</td>
+		<td>8.1 %</td>
+		<td>391.3 %</td>
+	</tr>
+	<tr>
+		<td>Oceania / Australia</td>
+		<td>34,468,443</td>
+		<td>0.5 %</td>
+		<td>18,430,359</td>
+		<td>53.5 %</td>
+		<td>1.7 %</td>
+		<td>141.9 %</td>
+	</tr>
+</table>
+<pre>
+<code>&lt;script language=&quot;javascript&quot; type=&quot;text/javascript&quot;&gt;
+//&lt;![CDATA[
+	setFilterGrid(&quot;table1&quot;);
+//]]&gt;
+&lt;/script&gt;</code>
+</pre>
+<script language="javascript" type="text/javascript">
+//<![CDATA[
+	setFilterGrid( "table1" );
+//]]>
+</script>
+<a href="#top">Top of page</a>
+<hr/>
+<h2><a name="tbl2" id="tbl2"></a>TABLE 2</h2>
+<p>Add a drop-down list, define its first option, sort it and remove a filter</p>
+<table id="table2" class="mytable" >
+	<tr>
+		<th>World Regions</th>
+		<th>Population ( 2007 Est.)</th>
+		<th>Population % of World</th>
+		<th>Internet Usage, Latest Data</th>
+		<th>% Population ( Penetration )</th>
+		<th>Usage % of World</th>
+		<th>Usage Growth 2000-2007</th>
+	</tr>
+	<tr>
+		<td>Africa</td>
+		<td>933,448,292</td>
+		<td>14.2 %</td>
+		<td>32,765,700</td>
+		<td>3.5 %</td>
+		<td>3.0 %</td>
+		<td>625.8%</td>
+	</tr>
+	<tr>
+		<td>Asia</td>
+		<td>3,712,527,624</td>
+		<td>56.5 %</td>
+		<td>389,392,288</td>
+		<td>10.5 %</td>
+		<td>35.6 %</td>
+		<td>240.7 %</td>
+	</tr>
+	<tr>
+		<td>Europe</td>
+		<td>809,624,686</td>
+		<td>12.3 %</td>
+		<td>312,722,892</td>
+		<td>38.6 %</td>
+		<td>28.6 %</td>
+		<td>197.6 %</td>
+	</tr>
+	<tr>
+		<td>Middle	East</td>
+		<td>193,452,727</td>
+		<td>2.9 %</td>
+		<td>19,382,400</td>
+		<td>10.0 %</td>
+		<td>1.8 %</td>
+		<td>490.1 %</td>
+	</tr>
+	<tr>
+		<td>North America</td>
+		<td>334,538,018</td>
+		<td>5.1 %</td>
+		<td>232,057,067</td>
+		<td>69.4 %</td>
+		<td>21.2 %</td>
+		<td>114.7 %</td>
+	</tr>
+	<tr>
+		<td>Latin America / Caribbean</td>
+		<td>556,606,627</td>
+		<td>8.5 %</td>
+		<td>88,778,986</td>
+		<td>16.0 %</td>
+		<td>8.1 %</td>
+		<td>391.3 %</td>
+	</tr>
+	<tr>
+		<td>Oceania / Australia</td>
+		<td>34,468,443</td>
+		<td>0.5 %</td>
+		<td>18,430,359</td>
+		<td>53.5 %</td>
+		<td>1.7 %</td>
+		<td>141.9 %</td>
+	</tr>
+</table>
+<pre><code>&lt;script language=&quot;javascript&quot; type=&quot;text/javascript&quot;&gt;
+//&lt;![CDATA[	
+	var table2_Props = 	{					
+					col_0: &quot;select&quot;,
+					col_5: &quot;none&quot;,
+					display_all_text: &quot; [ Show all ] &quot;,
+					sort_select: true
+				};
+	setFilterGrid( &quot;table2&quot;,table2_Props );
+//]]&gt;
+&lt;/script&gt;</code></pre>
+<script language="javascript" type="text/javascript">
+//<![CDATA[
+	var table2_Props = 	{
+							col_0: "select",
+							col_5: "none",
+							display_all_text: " [ Show all ] ",
+							sort_select: true 
+						};
+	setFilterGrid( "table2",table2_Props );
+//]]>
+</script>
+<a href="#top">Top of page</a>
+<hr/>
+<h2><a name="tbl3" id="tbl3"></a>TABLE 3</h2>
+<p>Define a start row for filtering process and make a row always visible</p>
+<table id="table3" class="mytable" >
+	<tr>
+		<td colspan="7">Additional row</td>
+	</tr>
+	<tr>
+		<th>World Regions</th>
+		<th>Population ( 2007 Est.)</th>
+		<th>Population % of World</th>
+		<th>Internet Usage, Latest Data</th>
+		<th>% Population ( Penetration )</th>
+		<th>Usage % of World</th>
+		<th>Usage Growth 2000-2007</th>
+	</tr>
+	<tr>
+		<td colspan="7">Additional row</td>
+	</tr>	
+	<tr>
+		<td>Africa</td>
+		<td>933,448,292</td>
+		<td>14.2 %</td>
+		<td>32,765,700</td>
+		<td>3.5 %</td>
+		<td>3.0 %</td>
+		<td>625.8%</td>
+	</tr>
+	<tr>
+		<td>Asia</td>
+		<td>3,712,527,624</td>
+		<td>56.5 %</td>
+		<td>389,392,288</td>
+		<td>10.5 %</td>
+		<td>35.6 %</td>
+		<td>240.7 %</td>
+	</tr>
+	<tr>
+		<td>Europe</td>
+		<td>809,624,686</td>
+		<td>12.3 %</td>
+		<td>312,722,892</td>
+		<td>38.6 %</td>
+		<td>28.6 %</td>
+		<td>197.6 %</td>
+	</tr>
+	<tr>
+		<td>Middle	East</td>
+		<td>193,452,727</td>
+		<td>2.9 %</td>
+		<td>19,382,400</td>
+		<td>10.0 %</td>
+		<td>1.8 %</td>
+		<td>490.1 %</td>
+	</tr>
+	<tr>
+		<td>North America</td>
+		<td>334,538,018</td>
+		<td>5.1 %</td>
+		<td>232,057,067</td>
+		<td>69.4 %</td>
+		<td>21.2 %</td>
+		<td>114.7 %</td>
+	</tr>
+	<tr>
+		<td>Latin America / Caribbean</td>
+		<td>556,606,627</td>
+		<td>8.5 %</td>
+		<td>88,778,986</td>
+		<td>16.0 %</td>
+		<td>8.1 %</td>
+		<td>391.3 %</td>
+	</tr>
+	<tr>
+		<td colspan="7" style="background-color:#FFFFCC;">This row is always visible</td>
+	</tr>	
+	<tr>
+		<td>Oceania / Australia</td>
+		<td>34,468,443</td>
+		<td>0.5 %</td>
+		<td>18,430,359</td>
+		<td>53.5 %</td>
+		<td>1.7 %</td>
+		<td>141.9 %</td>
+	</tr>
+	<tr>
+		<td colspan="7" style="background-color:#FFFFCC;">Last row is always visible</td>
+	</tr>
+</table>
+<pre><code>&lt;script language=&quot;javascript&quot; type=&quot;text/javascript&quot;&gt;
+//&lt;![CDATA[	
+	var table3_Props = { rows_always_visible:[10,12] };	
+	setFilterGrid( &quot;table3&quot;,table3_Props,2 );
+//]]&gt;
+&lt;/script&gt;</code></pre>
+<script language="javascript" type="text/javascript">
+//<![CDATA[
+	var table3_Props = 	{
+							rows_always_visible:[10,12]
+						};
+	setFilterGrid( "table3",table3_Props,2 );
+//]]>
+</script>
+<a href="#top">Top of page</a>
+<hr/>
+<h2><a name="tbl4" id="tbl4"></a>TABLE 4</h2>
+<p>Disable 'enter' key detection, disable &quot;onchange&quot; event on combo-box, add &quot;go&quot; button and call another function upon validation...</p>
+<table id="table4" class="mytable" >
+	<tr>
+		<th>World Regions</th>
+		<th>Population ( 2007 Est.)</th>
+		<th>Population % of World</th>
+		<th>Internet Usage, Latest Data</th>
+		<th>% Population ( Penetration )</th>
+		<th>Usage % of World</th>
+		<th>Usage Growth 2000-2007</th>
+	</tr>
+	<tr>
+		<td>Africa</td>
+		<td>933,448,292</td>
+		<td>14.2 %</td>
+		<td>32,765,700</td>
+		<td>3.5 %</td>
+		<td>3.0 %</td>
+		<td>625.8%</td>
+	</tr>
+	<tr>
+		<td>Asia</td>
+		<td>3,712,527,624</td>
+		<td>56.5 %</td>
+		<td>389,392,288</td>
+		<td>10.5 %</td>
+		<td>35.6 %</td>
+		<td>240.7 %</td>
+	</tr>
+	<tr>
+		<td>Europe</td>
+		<td>809,624,686</td>
+		<td>12.3 %</td>
+		<td>312,722,892</td>
+		<td>38.6 %</td>
+		<td>28.6 %</td>
+		<td>197.6 %</td>
+	</tr>
+	<tr>
+		<td>Middle	East</td>
+		<td>193,452,727</td>
+		<td>2.9 %</td>
+		<td>19,382,400</td>
+		<td>10.0 %</td>
+		<td>1.8 %</td>
+		<td>490.1 %</td>
+	</tr>
+	<tr>
+		<td>North America</td>
+		<td>334,538,018</td>
+		<td>5.1 %</td>
+		<td>232,057,067</td>
+		<td>69.4 %</td>
+		<td>21.2 %</td>
+		<td>114.7 %</td>
+	</tr>
+	<tr>
+		<td>Latin America / Caribbean</td>
+		<td>556,606,627</td>
+		<td>8.5 %</td>
+		<td>88,778,986</td>
+		<td>16.0 %</td>
+		<td>8.1 %</td>
+		<td>391.3 %</td>
+	</tr>
+	<tr>
+		<td>Oceania / Australia</td>
+		<td>34,468,443</td>
+		<td>0.5 %</td>
+		<td>18,430,359</td>
+		<td>53.5 %</td>
+		<td>1.7 %</td>
+		<td>141.9 %</td>
+	</tr>
+</table>
+<pre><code>&lt;script language=&quot;javascript&quot; type=&quot;text/javascript&quot;&gt;
+//&lt;![CDATA[
+	var table4_Props = 	{
+					col_0: &quot;select&quot;,
+					on_change: false,
+					btn: true,
+					btn_text: &quot;go&quot;,
+					enter_key: false,
+					mod_filter_fn: function(){ alert('Another function is called upon validation'); TF_Filter('table4'); };
+				}
+	setFilterGrid( &quot;table4&quot;,table4_Props );
+//]]&gt;
+&lt;/script&gt;</code></pre>
+<script language="javascript" type="text/javascript">
+//<![CDATA[
+	var table4_Props = 	{
+							col_0: "select",
+							on_change: false,
+							btn: true,
+							btn_text: "go",
+							enter_key: false,
+							mod_filter_fn: function(){ alert('Another function is called upon validation'); TF_Filter('table4'); }
+						};
+	setFilterGrid( "table4",table4_Props );
+//]]>
+</script>
+<a href="#top">Top of page</a>
+<hr/>
+<h2><a name="tbl5" id="tbl5"></a>TABLE 5</h2>
+<p>Enable exact query matches, set alternating rows background color, set column widths, add rows counter and reset button</p>
+<table id="table5" class="mytable" >
+	<tr>
+		<th>World Regions</th>
+		<th>Population ( 2007 Est.)</th>
+		<th>Population % of World</th>
+		<th>Internet Usage, Latest Data</th>
+		<th>% Population ( Penetration )</th>
+		<th>Usage % of World</th>
+		<th>Usage Growth 2000-2007</th>
+	</tr>
+	<tr>
+		<td>Africa</td>
+		<td>933,448,292</td>
+		<td>14.2 %</td>
+		<td>32,765,700</td>
+		<td>3.5 %</td>
+		<td>3.0 %</td>
+		<td>625.8%</td>
+	</tr>
+	<tr>
+		<td>Asia</td>
+		<td>3,712,527,624</td>
+		<td>56.5 %</td>
+		<td>389,392,288</td>
+		<td>10.5 %</td>
+		<td>35.6 %</td>
+		<td>240.7 %</td>
+	</tr>
+	<tr>
+		<td>Europe</td>
+		<td>809,624,686</td>
+		<td>12.3 %</td>
+		<td>312,722,892</td>
+		<td>38.6 %</td>
+		<td>28.6 %</td>
+		<td>197.6 %</td>
+	</tr>
+	<tr>
+		<td>Middle	East</td>
+		<td>193,452,727</td>
+		<td>2.9 %</td>
+		<td>19,382,400</td>
+		<td>10.0 %</td>
+		<td>1.8 %</td>
+		<td>490.1 %</td>
+	</tr>
+	<tr>
+		<td>North America</td>
+		<td>334,538,018</td>
+		<td>5.1 %</td>
+		<td>232,057,067</td>
+		<td>69.4 %</td>
+		<td>21.2 %</td>
+		<td>114.7 %</td>
+	</tr>
+	<tr>
+		<td>Latin America / Caribbean</td>
+		<td>556,606,627</td>
+		<td>8.5 %</td>
+		<td>88,778,986</td>
+		<td>16.0 %</td>
+		<td>8.1 %</td>
+		<td>391.3 %</td>
+	</tr>
+	<tr>
+		<td>Oceania / Australia</td>
+		<td>34,468,443</td>
+		<td>0.5 %</td>
+		<td>18,430,359</td>
+		<td>53.5 %</td>
+		<td>1.7 %</td>
+		<td>141.9 %</td>
+	</tr>
+</table>
+<pre><code>
+&lt;script language=&quot;javascript&quot; type=&quot;text/javascript&quot;&gt;
+//&lt;![CDATA[
+	var table5_Props = 	{
+					exact_match: true,
+					alternate_rows: true,
+					col_width: [&quot;250px&quot;,&quot;200px&quot;],//prevents column width variations
+					rows_counter: true,
+					rows_counter_text: &quot;Total rows: &quot;,
+					btn_reset: true,
+					bnt_reset_text: &quot;Clear all &quot;
+				};
+	setFilterGrid( &quot;table5&quot;,table5_Props );
+//]]&gt;
+&lt;/script&gt;</code></pre>
+<script language="javascript" type="text/javascript">
+//<![CDATA[
+	var table5_Props = 	{
+							exact_match: true,
+							alternate_rows: true,
+							col_width: ["250px","200px"],
+							rows_counter: true,
+							rows_counter_text: "Total rows: ",
+							btn_reset: true,
+							bnt_reset_text: "Clear all "
+						};
+	setFilterGrid( "table5",table5_Props );
+//]]>
+</script>
+<a href="#top">Top of page</a>
+<hr/>
+
+<h2><a name="tbl6" id="tbl6"></a>TABLE 6</h2>
+<p>Set paging, enable loader, set rows counter and reset button</p>
+<table id="table6" class="mytable" >
+	<tr>
+		<th>World Regions</th>
+		<th>Population ( 2007 Est.)</th>
+		<th>Population % of World</th>
+		<th>Internet Usage, Latest Data</th>
+		<th>% Population ( Penetration )</th>
+		<th>Usage % of World</th>
+		<th>Usage Growth 2000-2007</th>
+	</tr>
+	<tr>
+		<td>Africa</td>
+		<td>933,448,292</td>
+		<td>14.2 %</td>
+		<td>32,765,700</td>
+		<td>3.5 %</td>
+		<td>3.0 %</td>
+		<td>625.8%</td>
+	</tr>
+	<tr>
+		<td>Asia</td>
+		<td>3,712,527,624</td>
+		<td>56.5 %</td>
+		<td>389,392,288</td>
+		<td>10.5 %</td>
+		<td>35.6 %</td>
+		<td>240.7 %</td>
+	</tr>
+	<tr>
+		<td>Europe</td>
+		<td>809,624,686</td>
+		<td>12.3 %</td>
+		<td>312,722,892</td>
+		<td>38.6 %</td>
+		<td>28.6 %</td>
+		<td>197.6 %</td>
+	</tr>
+	<tr>
+		<td>Middle	East</td>
+		<td>193,452,727</td>
+		<td>2.9 %</td>
+		<td>19,382,400</td>
+		<td>10.0 %</td>
+		<td>1.8 %</td>
+		<td>490.1 %</td>
+	</tr>
+	<tr>
+		<td>North America</td>
+		<td>334,538,018</td>
+		<td>5.1 %</td>
+		<td>232,057,067</td>
+		<td>69.4 %</td>
+		<td>21.2 %</td>
+		<td>114.7 %</td>
+	</tr>
+	<tr>
+		<td>Latin America / Caribbean</td>
+		<td>556,606,627</td>
+		<td>8.5 %</td>
+		<td>88,778,986</td>
+		<td>16.0 %</td>
+		<td>8.1 %</td>
+		<td>391.3 %</td>
+	</tr>
+	<tr>
+		<td>Oceania / Australia</td>
+		<td>34,468,443</td>
+		<td>0.5 %</td>
+		<td>18,430,359</td>
+		<td>53.5 %</td>
+		<td>1.7 %</td>
+		<td>141.9 %</td>
+	</tr>
+</table>
+<pre><code>
+&lt;script language=&quot;javascript&quot; type=&quot;text/javascript&quot;&gt;
+//&lt;![CDATA[
+	var table6_Props = 	{
+					paging: true,
+					paging_length: 3,
+					rows_counter: true,
+					btn_reset: true,
+					loader: true,
+					loader_text: &quot;Filtering data...&quot;
+				};
+	setFilterGrid( &quot;table6&quot;,table6_Props );
+//]]&gt;
+&lt;/script&gt;</code></pre>
+<script language="javascript" type="text/javascript">
+//<![CDATA[
+	var table6_Props = 	{
+							paging: true,
+							paging_length: 3,
+							rows_counter: true,
+							btn_reset: true,
+							loader: true,
+							loader_text: "Filtering data..."
+						};
+	setFilterGrid( "table6",table6_Props );
+//]]>
+</script>
+<a href="#top">Top of page</a>
+<hr/>
+
+<h2><a name="tbl7" id="tbl7"></a>TABLE 7</h2>
+<p>Disable filter grid and set paging</p>
+<table id="table7" class="mytable" >
+	<tr>
+		<th>World Regions</th>
+		<th>Population ( 2007 Est.)</th>
+		<th>Population % of World</th>
+		<th>Internet Usage, Latest Data</th>
+		<th>% Population ( Penetration )</th>
+		<th>Usage % of World</th>
+		<th>Usage Growth 2000-2007</th>
+	</tr>
+	<tr>
+		<td>Africa</td>
+		<td>933,448,292</td>
+		<td>14.2 %</td>
+		<td>32,765,700</td>
+		<td>3.5 %</td>
+		<td>3.0 %</td>
+		<td>625.8%</td>
+	</tr>
+	<tr>
+		<td>Asia</td>
+		<td>3,712,527,624</td>
+		<td>56.5 %</td>
+		<td>389,392,288</td>
+		<td>10.5 %</td>
+		<td>35.6 %</td>
+		<td>240.7 %</td>
+	</tr>
+	<tr>
+		<td>Europe</td>
+		<td>809,624,686</td>
+		<td>12.3 %</td>
+		<td>312,722,892</td>
+		<td>38.6 %</td>
+		<td>28.6 %</td>
+		<td>197.6 %</td>
+	</tr>
+	<tr>
+		<td>Middle	East</td>
+		<td>193,452,727</td>
+		<td>2.9 %</td>
+		<td>19,382,400</td>
+		<td>10.0 %</td>
+		<td>1.8 %</td>
+		<td>490.1 %</td>
+	</tr>
+	<tr>
+		<td>North America</td>
+		<td>334,538,018</td>
+		<td>5.1 %</td>
+		<td>232,057,067</td>
+		<td>69.4 %</td>
+		<td>21.2 %</td>
+		<td>114.7 %</td>
+	</tr>
+	<tr>
+		<td>Latin America / Caribbean</td>
+		<td>556,606,627</td>
+		<td>8.5 %</td>
+		<td>88,778,986</td>
+		<td>16.0 %</td>
+		<td>8.1 %</td>
+		<td>391.3 %</td>
+	</tr>
+	<tr>
+		<td>Oceania / Australia</td>
+		<td>34,468,443</td>
+		<td>0.5 %</td>
+		<td>18,430,359</td>
+		<td>53.5 %</td>
+		<td>1.7 %</td>
+		<td>141.9 %</td>
+	</tr>
+</table>
+<pre><code>
+&lt;script language=&quot;javascript&quot; type=&quot;text/javascript&quot;&gt;
+//&lt;![CDATA[
+	var table7_Props = 	{
+						grid: false,
+						paging: true,
+						paging_length: 3,
+						rows_counter: true,
+						loader: true,
+						loader_text: &quot;Filtering data...&quot;
+				};
+	setFilterGrid( &quot;table7&quot;,table7_Props,-1 );
+	/*** Note ***
+		Since grid row is not generated, use -1 as start row index for paging.
+	*** ***/	
+//]]&gt;
+&lt;/script&gt;</code></pre>
+<script language="javascript" type="text/javascript">
+//<![CDATA[
+	var table7_Props = 	{
+							grid: false,
+							paging: true,
+							paging_length: 3,
+							rows_counter: true,
+							loader: true,
+							loader_text: "Filtering data..."
+						};
+	setFilterGrid( "table7",table7_Props,-1 );
+//]]>
+</script>
+<a href="#top">Top of page</a>
+<hr/>
+
+<h2><a name="tbl8" id="tbl8"></a>TABLE 8</h2>
+<p>Set the last row always visible and perform a sum operation on 2 columns</p>
+<table id="table8" class="mytable" >
+	<tr>
+		<th>World Regions</th>
+		<th>Population ( 2007 Est.)</th>
+		<th>Population % of World</th>
+		<th>Internet Usage, Latest Data</th>
+		<th>% Population ( Penetration )</th>
+		<th>Usage % of World</th>
+		<th>Usage Growth 2000-2007</th>
+	</tr>
+	<tr>
+		<td>Africa</td>
+		<td>933,448,292</td>
+		<td>14.2 %</td>
+		<td>32,765,700</td>
+		<td>3.5 %</td>
+		<td>3.0 %</td>
+		<td>625.8%</td>
+	</tr>
+	<tr>
+		<td>Asia</td>
+		<td>3,712,527,624</td>
+		<td>56.5 %</td>
+		<td>389,392,288</td>
+		<td>10.5 %</td>
+		<td>35.6 %</td>
+		<td>240.7 %</td>
+	</tr>
+	<tr>
+		<td>Europe</td>
+		<td>809,624,686</td>
+		<td>12.3 %</td>
+		<td>312,722,892</td>
+		<td>38.6 %</td>
+		<td>28.6 %</td>
+		<td>197.6 %</td>
+	</tr>
+	<tr>
+		<td>Middle	East</td>
+		<td>193,452,727</td>
+		<td>2.9 %</td>
+		<td>19,382,400</td>
+		<td>10.0 %</td>
+		<td>1.8 %</td>
+		<td>490.1 %</td>
+	</tr>
+	<tr>
+		<td>North America</td>
+		<td>334,538,018</td>
+		<td>5.1 %</td>
+		<td>232,057,067</td>
+		<td>69.4 %</td>
+		<td>21.2 %</td>
+		<td>114.7 %</td>
+	</tr>
+	<tr>
+		<td>Latin America / Caribbean</td>
+		<td>556,606,627</td>
+		<td>8.5 %</td>
+		<td>88,778,986</td>
+		<td>16.0 %</td>
+		<td>8.1 %</td>
+		<td>391.3 %</td>
+	</tr>
+	<tr>
+		<td>Oceania / Australia</td>
+		<td>34,468,443</td>
+		<td>0.5 %</td>
+		<td>18,430,359</td>
+		<td>53.5 %</td>
+		<td>1.7 %</td>
+		<td>141.9 %</td>
+	</tr>
+	<tr>
+		<td colspan="2">Total:</td>
+		<td id="table8Tot1" style="background-color:#FFFFCC;"></td>
+		<td colspan="2"></td>
+		<td><input id="table8Tot2" type="text" /></td>
+		<td></td>
+	</tr>	
+</table>
+<pre><code>
+&lt;script language=&quot;javascript&quot; type=&quot;text/javascript&quot;&gt;
+//&lt;![CDATA[
+	var table8_Props = 	{
+					rows_counter: true,
+					loader: true,
+					loader_text: &quot;Filtering data...&quot;,
+					col_operation: { 
+								id: [&quot;table8Tot1&quot;,&quot;table8Tot2&quot;],
+								col: [2,5],
+								operation: [&quot;sum&quot;,&quot;sum&quot;],
+								write_method: [&quot;innerHTML&quot;,&quot;setValue&quot;] 
+							},
+					rows_always_visible: [grabTag(grabEBI('table8'),&quot;tr&quot;).length]						
+				};
+	setFilterGrid( &quot;table8&quot;,table8_Props );
+	/*** Note ***
+		You can also write operation results in elements outside the table.
+	*** ***/	
+//]]&gt;
+&lt;/script&gt;</code></pre>
+<script language="javascript" type="text/javascript">
+//<![CDATA[
+	var table8_Props = 	{							
+							rows_counter: true,
+							loader: true,
+							loader_text: "Filtering data...",
+							col_operation: { 
+												id: ["table8Tot1","table8Tot2"],
+												col: [2,5],
+												operation: ["sum","sum"],
+												write_method: ["innerHTML","setValue"] 
+											},
+							rows_always_visible: [grabTag(grabEBI('table8'),"tr").length]
+						};
+	setFilterGrid( "table8",table8_Props );
+//]]>
+</script>
+<a href="#top">Top of page</a>
+<hr/>
+
+<h2><a name="tbl9" id="tbl9"></a>TABLE 9</h2>
+<p>Perform actions and retrieve information from the grid by using public functions</p>
+<div class="tools">
+	<table class="mytable">
+		<tr>
+			<td colspan="2"><input type="button" value="Show grid ids" onclick="alert( TF_GetFilterIds() );" /></td>
+		</tr>
+		<tr>
+			<td>
+				Choose table and perform action: 
+				<select id="slcEx">
+					<option value="table1">table1</option>
+					<option value="table2">table2</option>
+					<option value="table3">table3</option>
+					<option value="table4">table4</option>
+					<option value="table5">table5</option>
+					<option value="table6">table6</option>
+					<option value="table7">table7</option>
+					<option value="table8">table8</option>
+					<option value="table9" selected="">table9</option>
+					<option value="table10">table10</option>
+					<option value="table11">table11</option>
+					<option value="table12">table12</option>
+				</select>
+			
+			</td>
+			<td>
+				<input type="button" value="Check if it has grid" onclick="alert( TF_HasGrid( grabEBI('slcEx').value ) );" />
+				<input type="button" value="Filter table" onclick="TF_Filter( grabEBI('slcEx').value );" />
+				<input type="button" value="Clear grid" onclick="TF_ClearFilters(grabEBI('slcEx').value); TF_Filter(grabEBI('slcEx').value);" />
+				<input type="button" value="Remove grid" onclick="TF_RemoveFilterGrid(grabEBI('slcEx').value);" />
+				<input type="button" value="Reset filter grid" 
+					onclick="	var gid=grabEBI('slcEx').value; 
+								if( grabEBI( gid )!=null )
+									setFilterGrid( 
+										gid,
+										grabEBI( gid ).tf_Obj,
+										grabEBI( gid ).tf_ref_row
+									);					
+							" />
+				<input type="button" value="Return starting row" onclick="alert( TF_GetStartRow(grabEBI('slcEx').value) );" />	
+				<input type="button" value="Get filters ids" onclick="alert( TF_GetFilters(grabEBI('slcEx').value) );" />
+				<input type="button" value="Set filter value" onclick="TF_SetFilterValue(grabEBI('slcEx').value,2,'Search string here');" />
+				<input type="button" value="Return column values" onclick="alert( TF_GetColValues(grabEBI('slcEx').value,0) );" />			
+			
+			</td>
+		</tr>
+	</table>
+</div>
+<table id="table9" class="mytable" >
+	<tr>
+		<th>World Regions</th>
+		<th>Population ( 2007 Est.)</th>
+		<th>Population % of World</th>
+		<th>Internet Usage, Latest Data</th>
+		<th>% Population ( Penetration )</th>
+		<th>Usage % of World</th>
+		<th>Usage Growth 2000-2007</th>
+	</tr>
+	<tr>
+		<td>Africa</td>
+		<td>933,448,292</td>
+		<td>14.2 %</td>
+		<td>32,765,700</td>
+		<td>3.5 %</td>
+		<td>3.0 %</td>
+		<td>625.8%</td>
+	</tr>
+	<tr>
+		<td>Asia</td>
+		<td>3,712,527,624</td>
+		<td>56.5 %</td>
+		<td>389,392,288</td>
+		<td>10.5 %</td>
+		<td>35.6 %</td>
+		<td>240.7 %</td>
+	</tr>
+	<tr>
+		<td>Europe</td>
+		<td>809,624,686</td>
+		<td>12.3 %</td>
+		<td>312,722,892</td>
+		<td>38.6 %</td>
+		<td>28.6 %</td>
+		<td>197.6 %</td>
+	</tr>
+	<tr>
+		<td>Middle	East</td>
+		<td>193,452,727</td>
+		<td>2.9 %</td>
+		<td>19,382,400</td>
+		<td>10.0 %</td>
+		<td>1.8 %</td>
+		<td>490.1 %</td>
+	</tr>
+	<tr>
+		<td>North America</td>
+		<td>334,538,018</td>
+		<td>5.1 %</td>
+		<td>232,057,067</td>
+		<td>69.4 %</td>
+		<td>21.2 %</td>
+		<td>114.7 %</td>
+	</tr>
+	<tr>
+		<td>Latin America / Caribbean</td>
+		<td>556,606,627</td>
+		<td>8.5 %</td>
+		<td>88,778,986</td>
+		<td>16.0 %</td>
+		<td>8.1 %</td>
+		<td>391.3 %</td>
+	</tr>
+	<tr>
+		<td>Oceania / Australia</td>
+		<td>34,468,443</td>
+		<td>0.5 %</td>
+		<td>18,430,359</td>
+		<td>53.5 %</td>
+		<td>1.7 %</td>
+		<td>141.9 %</td>
+	</tr>
+</table>
+<pre><code>
+&lt;script language=&quot;javascript&quot; type=&quot;text/javascript&quot;&gt;
+//&lt;![CDATA[
+	var table9_Props = 	{
+					col_0: &quot;select&quot;
+				};
+	setFilterGrid( &quot;table9&quot;,table9_Props );
+//]]&gt;
+&lt;/script&gt;
+&lt;!-- buttons code below --&gt;
+
+&lt;input type=&quot;button&quot; value=&quot;Show grid ids&quot; onclick=&quot;alert( TF_GetFilterIds() );&quot; /&gt;
+
+&lt;select id=&quot;slcEx&quot;&gt;<br />	&lt;option value=&quot;table1&quot;&gt;table1&lt;/option&gt;
+	&lt;option value=&quot;table2&quot;&gt;table2&lt;/option&gt;
+	&lt;option value=&quot;table3&quot;&gt;table3&lt;/option&gt;
+	&lt;option value=&quot;table4&quot;&gt;table4&lt;/option&gt;
+	&lt;option value=&quot;table5&quot;&gt;table5&lt;/option&gt;
+	&lt;option value=&quot;table6&quot;&gt;table6&lt;/option&gt;
+	&lt;option value=&quot;table7&quot;&gt;table7&lt;/option&gt;
+	&lt;option value=&quot;table8&quot;&gt;table8&lt;/option&gt;
+	&lt;option value=&quot;table9&quot; selected=&quot;&quot;&gt;table9&lt;/option&gt;
+	&lt;option value=&quot;table10&quot;&gt;table10&lt;/option&gt;
+	&lt;option value=&quot;table11&quot;&gt;table11&lt;/option&gt;	
+	&lt;option value=&quot;table12&quot;&gt;table12&lt;/option&gt;
+&lt;/select&gt;
+
+&lt;input type=&quot;button&quot; value=&quot;Check if it has grid&quot; onclick=&quot;alert( TF_HasGrid( grabEBI('slcEx').value ) );&quot; /&gt;
+
+&lt;input type=&quot;button&quot; value=&quot;Filter table&quot; onclick=&quot;TF_Filter( grabEBI('slcEx').value );&quot; /&gt;
+
+&lt;input type=&quot;button&quot; value=&quot;Clear grid&quot; onclick=&quot;TF_ClearFilters(grabEBI('slcEx').value); TF_Filter(grabEBI('slcEx').value);&quot; /&gt;
+
+&lt;input type=&quot;button&quot; value=&quot;Remove grid&quot; onclick=&quot;TF_RemoveFilterGrid(grabEBI('slcEx').value);&quot; /&gt;
+&lt;input type=&quot;button&quot; value=&quot;Reset filter grid&quot; 
+	onclick=&quot;var gid=grabEBI('slcEx').value;
+				if( grabEBI( gid )!=null )
+				setFilterGrid( gid, grabEBI( gid ).tf_Obj, grabEBI( gid ).tf_ref_row ); &quot; /&gt;
+
+&lt;input type=&quot;button&quot; value=&quot;Return starting row&quot; onclick=&quot;alert( TF_GetStartRow(grabEBI('slcEx').value) );&quot; /&gt;
+
+&lt;input type=&quot;button&quot; value=&quot;Get filters ids&quot; onclick=&quot;alert( TF_GetFilters(grabEBI('slcEx').value) );&quot; /&gt;
+
+&lt;input type=&quot;button&quot; value=&quot;Set filter value&quot; onclick=&quot;TF_SetFilterValue(grabEBI('slcEx').value,2,'Search string here');&quot; /&gt;
+
+&lt;input type=&quot;button&quot; value=&quot;Return column values&quot; onclick=&quot;alert( TF_GetColValues(grabEBI('slcEx').value,0) );&quot; /&gt;
+ </code></pre>
+<script language="javascript" type="text/javascript">
+//<![CDATA[
+	var table9_Props = 	{
+							col_0: "select"
+						};
+	setFilterGrid( "table9",table9_Props );
+//]]>
+</script>
+<a href="#top">Top of page</a>
+<hr/>
+<h2><a name="tbl10" id="tbl10"></a>TABLE 10</h2>
+<p>Add an autocomplete feature to 1st column by binding an external script</p>
+<table id="table10" class="mytable" >
+	<tr>
+		<th>World Regions</th>
+		<th>Population ( 2007 Est.)</th>
+		<th>Population % of World</th>
+		<th>Internet Usage, Latest Data</th>
+		<th>% Population ( Penetration )</th>
+		<th>Usage % of World</th>
+		<th>Usage Growth 2000-2007</th>
+	</tr>
+	<tr>
+		<td>Africa</td>
+		<td>933,448,292</td>
+		<td>14.2 %</td>
+		<td>32,765,700</td>
+		<td>3.5 %</td>
+		<td>3.0 %</td>
+		<td>625.8%</td>
+	</tr>
+	<tr>
+		<td>Asia</td>
+		<td>3,712,527,624</td>
+		<td>56.5 %</td>
+		<td>389,392,288</td>
+		<td>10.5 %</td>
+		<td>35.6 %</td>
+		<td>240.7 %</td>
+	</tr>
+	<tr>
+		<td>Europe</td>
+		<td>809,624,686</td>
+		<td>12.3 %</td>
+		<td>312,722,892</td>
+		<td>38.6 %</td>
+		<td>28.6 %</td>
+		<td>197.6 %</td>
+	</tr>
+	<tr>
+		<td>Middle	East</td>
+		<td>193,452,727</td>
+		<td>2.9 %</td>
+		<td>19,382,400</td>
+		<td>10.0 %</td>
+		<td>1.8 %</td>
+		<td>490.1 %</td>
+	</tr>
+	<tr>
+		<td>North America</td>
+		<td>334,538,018</td>
+		<td>5.1 %</td>
+		<td>232,057,067</td>
+		<td>69.4 %</td>
+		<td>21.2 %</td>
+		<td>114.7 %</td>
+	</tr>
+	<tr>
+		<td>Latin America / Caribbean</td>
+		<td>556,606,627</td>
+		<td>8.5 %</td>
+		<td>88,778,986</td>
+		<td>16.0 %</td>
+		<td>8.1 %</td>
+		<td>391.3 %</td>
+	</tr>
+	<tr>
+		<td>Oceania / Australia</td>
+		<td>34,468,443</td>
+		<td>0.5 %</td>
+		<td>18,430,359</td>
+		<td>53.5 %</td>
+		<td>1.7 %</td>
+		<td>141.9 %</td>
+	</tr>
+</table>
+<pre><code>
+&lt;script language=&quot;javascript&quot; type=&quot;text/javascript&quot;&gt;
+//&lt;![CDATA[
+	var table10_Props = 	{
+					bind_script:{ name:&quot;autocomplete&quot;, target_fn: setAutoComplete }
+				};
+	setFilterGrid( &quot;table10&quot;,table10_Props );
+	//Refer to 'bind an external script' section. Those fns do not belong to the filter grid script. 
+	//You may need to develop intermediate fns to interface with external scripts.
+//]]&gt;
+&lt;/script&gt;</code></pre>
+<script language="javascript" type="text/javascript">
+//<![CDATA[
+	var table10_Props = {
+							bind_script:{ name:"autocomplete", target_fn: setAutoComplete }
+						};
+	setFilterGrid( "table10",table10_Props );
+//]]>
+</script>
+<a href="#top">Top of page</a>
+<hr/>
+</body>
+</html>

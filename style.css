@@ -1,0 +1,14 @@
+input.searchtable {
+	background:url("/lib/tpl/default/images/inputshadow.png") repeat-x scroll center top #FFFFFF;
+}
+
+input.searchtable, select.searchtable {
+	background-color:#FFFFFF;
+	border:1px solid #8CACBB;
+	color:#000000;
+	display:inline;
+	font-size:100%;
+	margin:1px;
+	padding:0.2em 0.3em;
+	vertical-align:middle;
+}

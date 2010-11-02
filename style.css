@@ -1,8 +1,8 @@
-input.searchtable {
-	background:url("/lib/tpl/default/images/inputshadow.png") repeat-x scroll center top #FFFFFF;
+div.dokuwiki input.searchtable {
+	background:url("images/inputshadow.png") repeat-x scroll center top #FFFFFF;
 }
 
-input.searchtable, select.searchtable {
+div.dokuwiki input.searchtable {
 	background-color:#FFFFFF;
 	border:1px solid #8CACBB;
 	color:#000000;

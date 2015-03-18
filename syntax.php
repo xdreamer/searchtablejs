@@ -20,7 +20,7 @@ class syntax_plugin_searchtablejs extends DokuWiki_Syntax_Plugin {
       'date'   => '2010-10-22',
       'name'   => 'Searchable javascript',
       'desc'   => 'Add <searchtable>  and </searchtable> around your table.',
-      'url'    => 'http://www3.informatik.uni-wuerzburg.de/',
+      'url'    => 'http://github.com/xdreamer/searchtablejs/',
     );
   }
   function getType() { return 'container';}

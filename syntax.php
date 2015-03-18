@@ -62,7 +62,7 @@ class syntax_plugin_searchtablejs extends DokuWiki_Syntax_Plugin {
         case DOKU_LEXER_ENTER :
           $id = mt_rand();
           $renderer->doc .= '<div class="searchtable'.$match.'" id="'.$id.'">';
-          $renderer->doc .= '<form class="searchtable" onsubmit="return false;"><input class="searchtable" name="filtertable" onkeyup="searchtable.filterall(this, \''.$id.'\')" type="text"></form>';
+          $renderer->doc .= 'Filter: <form class="searchtable" onsubmit="return false;"><input class="searchtable" name="filtertable" onkeyup="searchtable.filterall(this, \''.$id.'\')" type="text"></form>';
           break;
         case DOKU_LEXER_UNMATCHED :
           $renderer->doc .= p_render('xhtml',p_get_instructions($match),$info);

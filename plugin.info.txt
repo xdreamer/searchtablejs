@@ -1,7 +1,7 @@
 base    searchtablejs
 author  Robert Henjes  
 email   robert.henjes@gmx.net
-date    2010-10-26
+date    2015-03-18
 name    Searchtablejs Plugin
 desc    Use searchtablejs for quick filtering dokuwiki tables
 url     http://www.dokuwiki.org/plugin:searchtablejs

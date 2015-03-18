@@ -26,6 +26,9 @@ class syntax_plugin_searchtablejs extends DokuWiki_Syntax_Plugin {
   function getType() { return 'container';}
   function getPType(){ return 'normal';}
   function getSort() { return 999; }
+  
+  //Fix compatibility with edittable 
+  function getAllowedTypes() {return array('container','formatting','substition');}
 
   function connectTo($mode) {
     $this->Lexer->addEntryPattern('<searchtable[^>]*>(?=.*?\x3C/searchtable\x3E)',$mode,'plugin_searchtablejs');

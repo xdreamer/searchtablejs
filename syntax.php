@@ -36,7 +36,7 @@ class syntax_plugin_searchtablejs extends DokuWiki_Syntax_Plugin {
   function postConnect() {
     $this->Lexer->addExitPattern('</searchtable>','plugin_searchtablejs');
   }
-  function handle($match, $state, $pos, &$handler){
+  function handle($match, $state, $pos, Doku_Handler $handler){
 
     switch ($state) {
       case DOKU_LEXER_ENTER :
@@ -58,7 +58,7 @@ class syntax_plugin_searchtablejs extends DokuWiki_Syntax_Plugin {
     return array();
   }
 
-  function render($mode, &$renderer, $data) {
+  function render($mode, Doku_Renderer $renderer, $data) {
     list($state,$match) = $data;
     if ($mode == 'xhtml'){
       switch ($state) {
